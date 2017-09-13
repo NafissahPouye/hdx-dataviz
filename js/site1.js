@@ -52,7 +52,7 @@ function generatingComponent(vardata){
       .brushOn(false)
       //.renderArea(true)
       .renderHorizontalGridLines(true)
-      .margins({top: 20, right: 0, bottom: 20, left: 60})
+      .margins({top: 20, right: 0, bottom: 20, left: 40})
       .xAxis().ticks(7);
       
       
