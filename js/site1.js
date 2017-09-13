@@ -1,10 +1,11 @@
 function generatingComponent(vardata){
 
- 
+  //var lookUp = genLookup(vargeodata) ;
 
-  var nbOrgTrends = dc.compositeChart('#CompositeChart') ;
-  var scale_maxDate = new Date(2017, 7, 30);
+  var nbDatasetsTrends = dc.compositeChart('#CompositeChart') ;
+  var scale_maxDate = new Date(2017, 8, 30);
   var numberFormat = d3.format(',f');
+
   var dateFormat = d3.time.format("%Y-%m-%d");
   var dateFormatPretty = d3.time.format("%b %Y");
   var dateFormatPretty1 = d3.time.format("%Y");
@@ -12,20 +13,20 @@ function generatingComponent(vardata){
         e.date = dateFormat.parse(e.date);
     });
 
-  var xScaleRange = d3.time.scale().domain([new Date(2014, 1, 1), scale_maxDate]);
+  var xScaleRange = d3.time.scale().domain([new Date(2014, 0, 30), scale_maxDate]);
   
   var cf = crossfilter(vardata);
 
   var all = cf.groupAll();
 
-  var colors = ['#A9A9A9','#FAE61E'] ;
+  var colors = ['#A9A9A9','#17194d'] ;
 
    var dateDimension = cf.dimension(function (d) { return d.date});
 
-  var groupvalue = dateDimension.group().reduceSum(function (d){return d.value;});
+  var groupvalue3 = dateDimension.group().reduceSum(function (d){return d.value3;});
               
            
- nbOrgTrends
+ nbDatasetsTrends
 
       .width(1200)
 
@@ -44,7 +45,7 @@ function generatingComponent(vardata){
 
       .compose([
 
-        dc.lineChart(nbOrgTrends).group(groupvalue, 'Number of datasets').renderArea(true).colors(colors[0]).title(function (d) { return [ dateFormatPretty(d.key), d.value + ' organisations'].join('\n'); }),
+        dc.lineChart(nbDatasetsTrends).group(groupvalue3, 'Number of datasets').renderArea(true).colors(colors[1]).title(function (d) { return [ dateFormatPretty(d.key), d.value3 + ' organisations'].join('\n'); }),
 
         ])
 
