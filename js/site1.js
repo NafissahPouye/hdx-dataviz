@@ -19,7 +19,7 @@ function generatingComponent(vardata){
 
   var all = cf.groupAll();
 
-  var colors = ['#A9A9A9','#17194d'] ;
+  var colors = ['#A9A9A9','0000FF'] ;
 
    var dateDimension = cf.dimension(function (d) { return d.date});
 
@@ -45,7 +45,7 @@ function generatingComponent(vardata){
 
       .compose([
 
-        dc.lineChart(nbDatasetsTrends).group(groupvalue3, 'Number of datasets').renderArea(true).colors(colors[1]).title(function (d) { return [ dateFormatPretty(d.key), d.value3 + ' organisations'].join('\n'); }),
+        dc.lineChart(nbDatasetsTrends).group(groupvalue3).renderArea(true).colors(colors[1]).title(function (d) { return [ dateFormatPretty(d.key), d.value3 + ' organisations'].join('\n'); }),
 
         ])
 
@@ -53,7 +53,6 @@ function generatingComponent(vardata){
       //.renderArea(true)
       .renderHorizontalGridLines(true)
       .margins({top: 20, right: 0, bottom: 20, left: 60})
-      .legend(dc.legend().x($('#CompositeChart').width()-110).y(0).gap(2))
       .xAxis().ticks(7);
       
       

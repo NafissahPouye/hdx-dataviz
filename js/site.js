@@ -12,13 +12,13 @@ function generatingComponent(vardata){
         e.date = dateFormat.parse(e.date);
     });
 
-  var xScaleRange = d3.time.scale().domain([new Date(2014, 1, 1), scale_maxDate]);
+  var xScaleRange = d3.time.scale().domain([new Date(2014, 0, 1), scale_maxDate]);
   
   var cf = crossfilter(vardata);
 
   var all = cf.groupAll();
 
-  var colors = ['#A9A9A9','#FAE61E'] ;
+  var colors = ['00008B','#FAE61E'] ;
 
    var dateDimension = cf.dimension(function (d) { return d.date});
 
@@ -35,7 +35,7 @@ function generatingComponent(vardata){
 
       .x(d3.time.scale().domain([new Date(2014, 3, 30), new Date(2017, 7, 30)]))
 
-      .elasticY(true)
+      .elasticY(false)
 
       .valueAccessor(function(d){return d.value.avg;})
             
@@ -44,7 +44,7 @@ function generatingComponent(vardata){
 
       .compose([
 
-        dc.lineChart(nbOrgTrends).group(groupvalue, 'Number of datasets').renderArea(true).colors(colors[0]).title(function (d) { return [ dateFormatPretty(d.key), d.value + ' organisations'].join('\n'); }),
+        dc.lineChart(nbOrgTrends).group(groupvalue).renderArea(true).colors(colors[0]).title(function (d) { return [ dateFormatPretty(d.key), d.value + ' organisations'].join('\n'); }),
 
         ])
 
@@ -52,8 +52,7 @@ function generatingComponent(vardata){
       //.renderArea(true)
       .renderHorizontalGridLines(true)
       .margins({top: 20, right: 0, bottom: 20, left: 60})
-      .legend(dc.legend().x($('#CompositeChart').width()-110).y(0).gap(2))
-      .xAxis().ticks(7);
+      .xAxis().ticks(8);
       
       
 
