@@ -1,25 +1,25 @@
 function generatingComponent(vardata){
 
-  //var lookUp = genLookup(vargeodata) ;
+ 
 
   var nbDatasetsTrends = dc.compositeChart('#CompositeChart') ;
-  var scale_maxDate = new Date(2017, 8, 30);
+  var scale_maxDate = new Date(2017, 7, 30);
   var numberFormat = d3.format(',f');
-
   var dateFormat = d3.time.format("%Y-%m-%d");
-  var dateFormatPretty = d3.time.format("%b %Y");
+  var dateFormat1 = d3.time.format("%b %d %Y");
+  var dateFormatPretty = d3.time.format("%b %d %Y");
   var dateFormatPretty1 = d3.time.format("%Y");
       vardata.forEach(function (e) {
         e.date = dateFormat.parse(e.date);
     });
 
-  var xScaleRange = d3.time.scale().domain([new Date(2014, 0, 30), scale_maxDate]);
+  var xScaleRange = d3.time.scale().domain([new Date(2014, 0, 1), scale_maxDate]);
   
   var cf = crossfilter(vardata);
 
   var all = cf.groupAll();
 
-  var colors = ['#00007F','#000066'] ;
+  var colors = ['#2C5197','#FAE61E'] ;
 
    var dateDimension = cf.dimension(function (d) { return d.date});
 
@@ -36,25 +36,31 @@ function generatingComponent(vardata){
 
       .x(d3.time.scale().domain([new Date(2014, 3, 30), new Date(2017, 7, 30)]))
 
-      .elasticY(true)
+      .elasticY(false)
 
       .valueAccessor(function(d){return d.value.avg;})
             
       .shareTitle(false)
 
-
       .compose([
 
-        dc.lineChart(nbDatasetsTrends).group(groupvalue3).renderArea(true).colors(colors[1]).title(function (d) { return [ dateFormatPretty(d.key), d.value + ' datasets'].join('\n'); }),
+        dc.lineChart(nbDatasetsTrends).group(groupvalue3).renderArea(true).colors(colors[0]).title(function (d) { return [ dateFormat1(d.key), d.value + ' organisations'].join('\n'); }),
 
         ])
 
       .brushOn(false)
       //.renderArea(true)
       .renderHorizontalGridLines(true)
-      .margins({top: 20, right: 0, bottom: 20, left: 40})
-      .xAxis().tickFormat(d3.format(""));
-      
+      .margins({ top: 10, left: 40, right: 20, bottom: 60 })
+      .xAxis().ticks(d3.time.months, 1).tickFormat(d3.time.format("%b-%Y"));
+
+nbDatasetsTrends
+      .renderlet(function (chart) {
+                    chart.selectAll("g.x text")
+                      .attr('dx', '-30')
+                      .attr('transform', "rotate(-90)");
+                });
+
       
 
   dc.dataCount('count-info')
