@@ -6,6 +6,7 @@ function generatingComponent(vardata){
   var scale_maxDate = new Date(2017, 7, 30);
   var numberFormat = d3.format(',f');
   var dateFormat = d3.time.format("%Y-%m-%d");
+  var dateFormat1 = d3.time.format("%b %d %Y");
   var dateFormatPretty = d3.time.format("%b %Y");
   var dateFormatPretty1 = d3.time.format("%Y");
       vardata.forEach(function (e) {
@@ -18,7 +19,7 @@ function generatingComponent(vardata){
 
   var all = cf.groupAll();
 
-  var colors = ['00008B','#FAE61E'] ;
+  var colors = ['#0000CD','#FAE61E'] ;
 
    var dateDimension = cf.dimension(function (d) { return d.date});
 
@@ -43,16 +44,23 @@ function generatingComponent(vardata){
 
       .compose([
 
-        dc.lineChart(nbOrgTrends).group(groupvalue).renderArea(true).colors(colors[0]).title(function (d) { return [ dateFormatPretty(d.key), d.value + ' organisations'].join('\n'); }),
+        dc.lineChart(nbOrgTrends).group(groupvalue).renderArea(true).colors(colors[0]).title(function (d) { return [ dateFormat1(d.key), d.value + ' organisations'].join('\n'); }),
 
         ])
 
       .brushOn(false)
       //.renderArea(true)
       .renderHorizontalGridLines(true)
-      .margins({top: 20, right: 0, bottom: 20, left: 40})
-      .xAxis().ticks(8);
-      
+      .margins({ top: 10, left: 30, right: 10, bottom: 60 })
+      .xAxis().ticks(d3.time.months, 1).tickFormat(d3.time.format("%b-%Y"));
+
+nbOrgTrends
+      .renderlet(function (chart) {
+                    chart.selectAll("g.x text")
+                      .attr('dx', '-30')
+                      .attr('transform', "rotate(-90)");
+                });
+
       
 
   dc.dataCount('count-info')
