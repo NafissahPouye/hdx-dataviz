@@ -7,7 +7,7 @@ function generatingComponent(vardata){
   var numberFormat = d3.format(',f');
   var dateFormat = d3.time.format("%Y-%m-%d");
   var dateFormat1 = d3.time.format("%b %d %Y");
-  var dateFormatPretty = d3.time.format("%b %Y");
+  var dateFormatPretty = d3.time.format("%b %d %Y");
   var dateFormatPretty1 = d3.time.format("%Y");
       vardata.forEach(function (e) {
         e.date = dateFormat.parse(e.date);
