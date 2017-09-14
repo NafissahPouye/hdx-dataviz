@@ -51,8 +51,8 @@ function generatingComponent(vardata){
       //.renderArea(true)
       .renderHorizontalGridLines(true)
       .margins({top: 20, right: 0, bottom: 20, left: 40})
-      .xAxis().ticks(8);
-      
+      .xAxis().tickFormat(d3.time.format("%b-%Y")).ticks(8);
+
       
 
   dc.dataCount('count-info')
