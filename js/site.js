@@ -6,14 +6,14 @@ function generatingComponent(vardata){
   var scale_maxDate = new Date(2017, 7, 30);
   var numberFormat = d3.format(',f');
   var dateFormat = d3.time.format("%Y-%m-%d");
-  var dateFormat1 = d3.time.format("%b %d %Y");
+  var dateFormat1 = d3.time.format("%Y-W%W");
   var dateFormatPretty = d3.time.format("%b %d %Y");
   var dateFormatPretty1 = d3.time.format("%Y");
       vardata.forEach(function (e) {
         e.date = dateFormat.parse(e.date);
     });
 
-  var xScaleRange = d3.time.scale().domain([new Date(2014, 0, 1), scale_maxDate]);
+  var xScaleRange = d3.time.scale().domain([new Date(2014, 4, 18), scale_maxDate]);
   
   var cf = crossfilter(vardata);
 
@@ -51,14 +51,14 @@ function generatingComponent(vardata){
       .brushOn(false)
       //.renderArea(true)
       .renderHorizontalGridLines(true)
-      .margins({ top: 10, left: 30, right: 10, bottom: 60 })
-      .xAxis().ticks(d3.time.months, 1).tickFormat(d3.time.format("%b-%Y"));
+      .margins({ top: 10, left: 33, right: 5, bottom: 60 })
+      .xAxis().ticks(d3.time.weeks, 4).tickFormat(d3.time.format("%Y-W%W")).ticks(30);
 
 nbOrgTrends
       .renderlet(function (chart) {
                     chart.selectAll("g.x text")
                       .attr('dx', '-30')
-                      .attr('transform', "rotate(-90)");
+                      .attr('transform', "rotate(-60)");
                 });
 
       
