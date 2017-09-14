@@ -19,7 +19,7 @@ function generatingComponent(vardata){
 
   var all = cf.groupAll();
 
-  var colors = ['#0000CD','#FAE61E'] ;
+  var colors = ['#2C5197','#FAE61E'] ;
 
    var dateDimension = cf.dimension(function (d) { return d.date});
 
