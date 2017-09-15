@@ -54,6 +54,20 @@ function generatingComponent(vardata){
       .margins({ top: 10, left: 33, right: 5, bottom: 60 })
       .xAxis().ticks(d3.time.weeks, 4).tickFormat(d3.time.format("%Y-W%W")).ticks(30);
 
+
+      //test
+      function remove_space(groupvalue3) { 
+  return {
+    all: function() {
+      
+      return groupFoodsec.all().filter(function(d) {
+        console.log(d)
+        return d.key !=0;
+      });
+    }
+  };
+}
+
 nbDatasetsTrends
       .renderlet(function (chart) {
                     chart.selectAll("g.x text")

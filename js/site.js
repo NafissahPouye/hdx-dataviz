@@ -1,7 +1,5 @@
 function generatingComponent(vardata){
 
- 
-
   var nbOrgTrends = dc.compositeChart('#CompositeChart') ;
   var scale_maxDate = new Date(2017, 7, 30);
   var numberFormat = d3.format(',f');
@@ -24,6 +22,19 @@ function generatingComponent(vardata){
    var dateDimension = cf.dimension(function (d) { return d.date});
 
   var groupvalue = dateDimension.group().reduceSum(function (d){return d.value;});
+  var groupmilevalue = dateDimension.group().reduceSum(function(d){return d.milvalue});
+
+   function remove_space(groupmilevalue) { 
+  return {
+    all: function() {
+      
+      return groupmilevalue.all().filter(function(d) {
+        console.log(d)
+        return (d.key!=0);
+      });
+    }
+  };
+}
               
            
  nbOrgTrends
@@ -45,14 +56,14 @@ function generatingComponent(vardata){
       .compose([
 
         dc.lineChart(nbOrgTrends).group(groupvalue).renderArea(true).colors(colors[0]).title(function (d) { return [ dateFormat1(d.key), d.value + ' organisations'].join('\n'); }),
-
+        dc.lineChart(nbOrgTrends).group(groupmilevalue).colors(colors[1])
         ])
 
       .brushOn(false)
-      //.renderArea(true)
       .renderHorizontalGridLines(true)
       .margins({ top: 10, left: 33, right: 5, bottom: 60 })
-      .xAxis().ticks(d3.time.weeks, 4).tickFormat(d3.time.format("%Y-W%W")).ticks(30);
+      .xAxis().ticks(d3.time.weeks, 3).tickFormat(d3.time.format("%Y-W%W")).ticks(30);
+
 
 nbOrgTrends
       .renderlet(function (chart) {
